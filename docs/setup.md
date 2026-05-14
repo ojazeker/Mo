@@ -4,7 +4,29 @@ This guide takes you from a fresh clone to a running local app with card images.
 
 ---
 
-## 1. Clone and create the Python environment
+## 1. Flash the Raspberry Pi
+
+Download and install [Raspberry Pi Imager](https://www.raspberrypi.com/software/).
+
+- **OS:** Raspberry Pi OS Lite (32-bit) — no desktop needed
+- **Storage:** your SD card
+
+Before writing, click the **gear icon** (or "Edit Settings") to pre-configure:
+
+| Setting | Value |
+|---|---|
+| Hostname | `mo` |
+| SSH | Enable (password auth) |
+| Username | your choice (e.g. `pi`) |
+| Password | your choice |
+| WiFi | your home network (optional, can be set up later) |
+
+Write the image, insert the SD card into the Pi, and power it on. After ~30 seconds it should be reachable at `mo.local`.
+We will be communicating with the Pi over SSH from here on.
+
+---
+
+## 3. Clone and create the Python environment to your mac/pc
 
 ```bash
 git clone https://github.com/ojazeker/Mo.git
@@ -22,7 +44,7 @@ pip install -r requirements.txt
 
 ---
 
-## 2. Install frontend dependencies
+## 3. Install frontend dependencies
 
 ```bash
 npm install
@@ -33,7 +55,7 @@ This compiles Sass → `app/static/css/style.css` and bundles JS → `app/static
 
 ---
 
-## 3. Download AtomicCards.json
+## 4. Download AtomicCards.json
 
 This is the master card database from [MTGJSON](https://mtgjson.com/downloads/all-files/). It's the source for all card data — everything else is built from it.
 
@@ -47,7 +69,7 @@ It's about 150MB and gitignored — you only need to re-download it when you wan
 
 ---
 
-## 4. Fetch the set list
+## 5. Fetch the set list
 
 This downloads release dates for all sets, used to pick the oldest printing of each card.
 
@@ -59,7 +81,7 @@ Writes `cards_json/SetList.json`. Only needs re-running when new sets release.
 
 ---
 
-## 5. Extract card data
+## 6. Extract card data
 
 This reads `AtomicCards.json` and produces a smaller JSON per card type containing only the cards the app needs.
 
@@ -77,9 +99,10 @@ python3 scripts/build/extract_cards.py --type creature
 
 ---
 
-## 6. Download images from Scryfall
+## 7. Download images from Scryfall
 
 Using the JSON files from step 5, this fetches card images from Scryfall — always the oldest paper printing.
+This will take a while and you should be seeing what images its trying to pull. Grab a coffee and wait.
 
 ```bash
 python3 scripts/build/download_images.py --type all
@@ -96,7 +119,7 @@ Images land in `images/{type}/<cmc>/`. The app only shows card types that have i
 
 ---
 
-## 7. Dither images for thermal printing
+## 8. Dither images for thermal printing
 
 The thermal printer needs monochrome BMP files. This converts the downloaded JPGs using Floyd-Steinberg dithering.
 
@@ -111,9 +134,11 @@ done
 
 ---
 
-## 8. Build the card text index
+## 9. Build the card text index
 
-Used by the in-app card search:
+Using the AtomicCards.json as a card index is no bueno, it's far too large for the Pi to handle, se we will make our own index to show card text and other information we need. TheThis should result in a file thats roughly 10mb vs 150mb.
+
+It's used by the in-app card search:
 
 ```bash
 python3 scripts/build/build_card_text_index.py
@@ -123,7 +148,7 @@ Writes `app/data/card_text_index.json`.
 
 ---
 
-## 9. Run the app locally
+## 10. Run the app locally
 
 ```bash
 # Mac/Linux:
@@ -141,13 +166,13 @@ Or with live reloading (recommended during development):
 npm run dev:live
 ```
 
-Open `http://127.0.0.1:8000` (or `http://127.0.0.1:3000` with BrowserSync).
-
-You should see `✓ Loaded compact card text index` in the terminal output.
+- Open `http://127.0.0.1:8000` (or `http://127.0.0.1:3000` with BrowserSync).
+- Try to get a random momir card.
+- You should see `✓ Loaded compact card text index` in the terminal output.
 
 ---
 
-## Optional: tokens and avatars
+## Tokens and avatars
 
 ```bash
 python3 scripts/build/download_tokens.py
@@ -155,10 +180,11 @@ python3 scripts/build/dither_tokens.py
 python3 scripts/build/refresh_token_metadata.py
 ```
 
-For the Momir avatar image, place `momir_vig.jpeg` in the project root and run:
+For the avatar images, create folder `images/avatars/` and place avatars you wish to use named: `jhoira_avatar.jpg`, `momir_avatar.jpg` and `stonehewer_avatar.jpg`.
+I created my own avatars because I did not like the default ones.
 
 ```bash
-python3 scripts/build/dither_momir_avatar.py
+python3 scripts/build/dither_avatars.py
 ```
 
 ---
