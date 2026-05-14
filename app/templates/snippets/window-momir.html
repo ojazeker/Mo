@@ -1,0 +1,61 @@
+<div class="window momir-window">
+    <div class="title-bar">
+        <span>Momir Vig</span>
+    </div>
+
+    <main class="momir-panel avatar-panel">
+        <div id="inputSection" class="panel input-section">
+
+            <div class="cmc-display">
+                <span id="cmcValue"></span>
+            </div>
+
+            <div class="numpad">      
+                <button class="numpad-btn" data-value="7">7</button>
+                <button class="numpad-btn" data-value="8">8</button>
+                <button class="numpad-btn" data-value="9">9</button>
+                <button class="numpad-btn" data-value="4">4</button>
+                <button class="numpad-btn" data-value="5">5</button>
+                <button class="numpad-btn" data-value="6">6</button>
+                <button class="numpad-btn" data-value="1">1</button>
+                <button class="numpad-btn" data-value="2">2</button>
+                <button class="numpad-btn" data-value="3">3</button>
+                <button id="momirAvatarBtn" class="numpad-btn avatar-info">?</button>
+                <button class="numpad-btn" data-value="0">0</button>    
+                <button id="clearBtn" class="numpad-btn">clear</button>                
+            </div>
+
+            <button id="printBtn" class="action-btn primary" disabled>
+                Print Creature
+            </button>
+        </div>
+
+        <div id="cardSection" class="panel card-section" style="display: none;">
+            <div class="card-actions">
+                <button id="newCardBtn" class="action-btn primary">Next</button>
+                <button id="homeBtn" class="action-btn">Back</button>
+            </div>
+
+            <div class="image-frame">
+                <img id="cardImage" class="card-image" alt="Generated card image" />
+            </div>
+
+            <div id="cardRulesText" class="card-rules-text"></div>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </div>
+
+        <div id="loadingState" class="panel loading-state" style="display: none;">
+            <p>Loading...</p>
+        </div>
+
+        <div id="momirAvatarSection" class="panel card-section" style="display: none;">
+            <div class="card-actions">
+                <button id="momirAvatarPrintBtn" class="action-btn primary">Print</button>
+                <button id="momirAvatarBackBtn" class="action-btn">Back</button>
+            </div>
+            <div class="image-frame">
+                <img src="/api/avatar-image?name=momir_avatar" alt="Momir Vig" class="card-image" />
+            </div>
+        </div>
+    </main>
+</div>

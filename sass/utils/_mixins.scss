@@ -1,0 +1,144 @@
+@use "../base/typography" as *;
+
+@mixin outward-button {
+    @include small-head;
+    color: var(--black);
+    padding: .75rem .2rem;
+    background: var(--gray1);
+    border: 2px solid var(--black);
+    border-radius: .2rem;
+    box-shadow: inset -.1rem -.1rem 0 var(--gray3);
+    &:active {
+        background: var(--gray3);
+        box-shadow: inset -.1rem -.1rem 0 var(--white), inset .2rem .2rem 0 var(--gray4);
+
+    }
+}
+
+@mixin simple-button {
+    color: var(--black);
+    padding: .5rem .2rem;
+    border: 2px solid var(--black);
+    background: var(--white);
+    border-color: var(--black);
+    border-radius: .4rem;
+    box-shadow: inset -.1rem -.1rem 0 var(--gray3);
+    font-size: 1rem;
+    &:active,
+    &.active {
+        background: var(--gray3);
+        box-shadow: inset -.1rem -.1rem 0 var(--white), inset .2rem .2rem 0 var(--gray4);
+    }
+    &[disabled] {
+        background: var(--gray2);
+        border: 2px solid var(--gray3);
+        color: var(--gray3);
+
+    }
+}
+
+@mixin shadow-button {
+    @include small-head;
+    border: .15rem solid;
+    border-color: var(--black);
+    background: var(--white);
+    color: var(--black);
+    box-shadow: .3rem .3rem var(--black);
+    padding: 1rem .5rem;
+    &:active {
+        transform: translate(1px, 1px);
+        border-color: var(--gray4) var(--white) var(--white) var(--gray4);
+        box-shadow: inset 1px 1px 0 var(--gray3);
+    }
+    :disabled {
+        color: var(--gray4);
+        border: 3.5px double var(--black);
+        background: var(--gray2);
+        border-color: var(--gray4);
+        box-shadow: 4px 4px transparent;
+    }
+}
+
+
+@mixin text-frame {
+    @include medium-head;
+    background: var(--white);
+    border: 2px solid var(--black);
+    min-height: 2.75rem;
+    margin-bottom: 10px;
+    padding: .5rem 1rem;
+}
+
+@mixin meta-text-frame {
+    @include meta-head;
+    margin: 0;
+    padding: .5rem 1rem;
+    background: var(--white);
+    border: 2px solid var(--black);
+    & p {
+        margin: 0 0 .5rem;
+        white-space: pre-line;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+@mixin inner-frame {
+    border: .4rem double var(--black);
+    padding: .5rem;
+    background: var(--white);
+    border-radius: .2rem;
+    box-shadow: inset 1px 1px 0 var(--gray3);
+}
+
+
+
+@mixin styled-scrollbar{
+    scrollbar-width: auto;
+    scrollbar-color: var(--gray4) var(--gray2);
+    &::-webkit-scrollbar {
+        width: 16px;
+        background: var(--gray2);
+    }
+
+    &::-webkit-scrollbar-track {
+        border-left: 1px solid var(--gray4);
+        background: var(--gray2);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #c9c9c9;
+        border: 2px solid;
+        border-color: var(--white) var(--grey5) var(--grey5) var(--white);
+        box-shadow: inset 1px 1px 0 #efefef;
+    }
+
+    &::-webkit-scrollbar-button:single-button {
+        display: block;
+        height: 16px;
+        background-color: #dcdcdc;
+        border: 2px solid;
+        border-color: #ffffff #5a5a5a #5a5a5a #ffffff;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 8px 8px;
+    }
+
+    &::-webkit-scrollbar-button:single-button:vertical:decrement {
+        background-image: linear-gradient(45deg, transparent 50%, #000 50%), linear-gradient(-45deg, transparent 50%, #000 50%);
+        background-position: calc(50% - 3px) 9px, calc(50% + 3px) 9px;
+        background-size: 6px 6px;
+    }
+
+    &::-webkit-scrollbar-button:single-button:vertical:increment {
+        background-image: linear-gradient(135deg, transparent 50%, #000 50%), linear-gradient(-135deg, transparent 50%, #000 50%);
+        background-position: calc(50% - 3px) 5px, calc(50% + 3px) 5px;
+        background-size: 6px 6px;
+    }
+
+    &::-webkit-scrollbar-corner {
+        background: #d7d7d7;
+    }
+}
+

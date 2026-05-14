@@ -1,0 +1,19 @@
+{
+  "momir_avatar": {
+    "displayName": "Momir Vig, Simic Visionary",
+    "cardType": "creature",
+    "cmcPrompt": "Pick a CMC"
+  },
+  "stonehewer_avatar": {
+    "displayName": "Stonehewer Giant",
+    "cardType": "artifact",
+    "subtype": "Equipment",
+    "cmcPrompt": "Pick a CMC"
+  },
+  "jhoira_avatar": {
+    "displayName": "Jhoira of the Ghitu",
+    "cardTypes": ["instant", "sorcery"],
+    "previewOnly": true,
+    "cmcPrompt": "Pick a CMC"
+  }
+}

@@ -1,0 +1,89 @@
+@use '../utils/backgrounds' as *;
+@use '../utils/mixins' as *;
+
+
+html {
+    @include checker-pattern ;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    touch-action: manipulation;
+}
+
+.card-rules-text {
+    @include meta-text-frame;
+}
+
+.cmc-display {
+    @include text-frame;
+}
+
+.card-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+.image-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    padding: 0px;
+    border: 1.5px solid black;
+    box-shadow: 3px 3px black;
+    background: black;
+    border-radius: 20px;
+    overflow: hidden;
+    width: fit-content;
+    margin: 0 auto 12px auto;
+    
+} 
+
+.container {
+    box-sizing: border-box;
+    max-width: 700px;
+    padding: .5rem;
+    min-height: 100svh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.window {
+    margin-bottom: .5rem;
+}
+
+main {
+    padding: var(--windowPadding);
+    height: 100%;
+}
+
+.window-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0px;
+    // hide scrollbar — snapping handles navigation
+    scrollbar-width: none;
+    margin-bottom: .5rem;
+    &::-webkit-scrollbar { display: none; }
+
+    > .window {
+        flex-shrink: 0;
+        width: calc(100% - 0px);
+        scroll-snap-align: start;
+        overflow: hidden;
+        min-height: 100%;
+        margin-bottom: 0rem;
+    }
+}
+
+

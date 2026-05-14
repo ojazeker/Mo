@@ -1,0 +1,24 @@
+{
+  "name": "momirprinter-frontend-build",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:css": "sass sass/site.scss:app/static/css/style.css --style=expanded --source-map",
+    "watch:css": "sass sass/site.scss:app/static/css/style.css --watch --style=expanded --source-map",
+    "build:js": "esbuild js/main.js --bundle --minify --outfile=app/static/js/mo.min.js",
+    "watch:js": "esbuild js/main.js --bundle --minify --outfile=app/static/js/mo.min.js --watch",
+    "build": "npm run build:css && npm run build:js",
+    "dev": "concurrently -k -n CSS,JS -c magenta,cyan \"npm run watch:css\" \"npm run watch:js\"",
+    "serve:flask": "./run.sh",
+    "serve:proxy": "browser-sync start --proxy http://localhost:8000 --files 'app/templates/**/*.html,app/static/css/*.css,app/static/js/*.js' --port 3000 --no-open",
+    "dev:live": "concurrently -k -n FLASK,SASS,JS,SYNC -c blue,magenta,cyan,green \"npm run serve:flask\" \"npm run watch:css\" \"npm run watch:js\" \"wait-on tcp:8000 && npm run serve:proxy\"",
+    "dev:live:attach": "concurrently -k -n SASS,SYNC -c magenta,green \"npm run watch:css\" \"wait-on http://mo.local && npm run serve:proxy\""
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "browser-sync": "^3.0.4",
+    "concurrently": "^9.2.1",
+    "sass": "^1.93.0",
+    "wait-on": "^8.0.5"
+  }
+}

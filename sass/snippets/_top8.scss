@@ -1,0 +1,58 @@
+@use '../base/typography' as *;
+@use '../utils/backgrounds' as *;
+@use '../utils/mixins' as *;
+
+.top8-window {
+    margin-bottom: 3rem;
+}
+
+.top8-panel {
+    @include linesPattern(var(--gray3), var(--gray1));
+    padding: var(--windowPadding);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.top8-controls {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.top8-select {
+    @include small-head;
+    font-family: inherit;
+    flex: 1;
+    padding: .5rem;
+    border: 1px solid;
+    border-color: var(--gray5) var(--gray3) var(--gray3) var(--gray5);
+    background: var(--white);
+    color: var(--black);
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    &:focus {
+        outline: 0;
+    }
+}
+
+.top8-deck-list {
+    @include inner-frame;
+    @include styled-scrollbar;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    max-height: 340px;
+    overflow-y: auto;
+}
+
+.top8-deck-btn {
+    @include simple-button;
+}
+
+.top8-empty {
+    @include meta-head;
+    font-style: italic;
+    margin: 0;
+}

@@ -1,0 +1,30 @@
+@use "base/reset";
+@use "base/typography";
+@use "base/animations";
+
+
+@use "utils/mixins";
+
+@use "base/base-layout";
+@use "base/keyboard-layout";
+@use "base/window-chrome";
+@use "base/controls";
+@use "base/numpad";
+
+
+@use "snippets/jhoira";
+@use "snippets/tokens";
+@use "snippets/card-search";
+@use "snippets/decklist";
+@use "snippets/top8";
+
+
+:root {
+    --windowPadding: 12px;
+    --black: #111;
+    --white: #fff;
+    --gray1: #f8f8f8;
+    --gray2: #e8e8e8;
+    --gray3: #c8c8c8;
+    --gray4: #6b6b6b;
+}

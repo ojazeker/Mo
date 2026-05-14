@@ -1,0 +1,118 @@
+@use '../utils/mixins' as *;
+@use '../utils/backgrounds' as *;
+@use '../base/typography' as *;
+
+.decklist-panel {
+    @include linesPattern(var(--gray3), var(--gray1));
+    padding: var(--windowPadding);
+    min-height: 15rem;
+
+}
+
+.decklist-textarea {
+    @include inner-frame;
+    font-family: inherit;
+    width: 100%;
+    min-height: 15rem;
+    padding: 1rem;
+    resize: vertical;
+    outline: none;
+    margin-bottom: .5rem;
+    &::placeholder {
+        color: var(--grey3);
+    }
+}
+
+.decklist-status {
+    @include small-head;
+    color: var(--black);
+    border: 2px solid var(--black);
+    padding: .5rem;
+    margin-bottom: .5rem;
+    background: var(--white);
+    
+}
+
+.decklist-cards {
+    @include inner-frame;
+    padding: 1rem;
+    gap: var(--windowPadding);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: auto;
+    scrollbar-color: #8c8c8c #d7d7d7;
+
+    &::-webkit-scrollbar {
+        width: 16px;
+        background: #d7d7d7;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-left: 1px solid #7a7a7a;
+        background: #d7d7d7;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #c9c9c9;
+        border: 2px solid;
+        border-color: #ffffff #5a5a5a #5a5a5a #ffffff;
+        box-shadow: inset 1px 1px 0 #efefef;
+    }
+}
+
+.decklist-section-label {
+    @include small-head;
+    grid-column: 1 / -1;
+}
+
+.decklist-card-entry {
+    position: relative;
+    background: var(--gray3);
+    &.not-found {
+        opacity: 0.55;
+    }
+}
+
+.decklist-card-remove {
+    @include small-head;
+    @include simple-button;
+    padding: .5rem;
+    border: 0;
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+
+    z-index: 3;
+
+   
+}
+
+.decklist-card-entry img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.decklist-card-not-found {
+    @include meta-head;
+    width: 100%;
+    padding: 50% 1rem;
+    box-sizing: border-box;
+    background: var(--grey2);
+    text-align: center;
+    color: var(--grey4);
+    font-style: italic;
+}
+
+.decklist-card-label {
+    @include meta-head;
+    font-size: 12px;
+    padding: .5rem;
+    background: var(--gray2);
+    border: 1px solid var(--gray4);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

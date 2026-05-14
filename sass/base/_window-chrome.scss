@@ -1,0 +1,72 @@
+@use '../utils/backgrounds' as *;
+@use '../base/typography' as *;
+
+
+.window {
+    --black: var(--gray4);
+    background: var(--gray1);
+    border: .1rem solid;
+    border-bottom: .2rem solid;
+    border-right: .2rem solid;
+    border-color: var(--gray4);
+    &.is-active-window {
+        border-color: var(--black);
+    }
+}
+
+
+
+.avatar-panel {
+    @include dottedPattern(var(--gray4), var(--gray2));
+}
+
+.title-bar {
+    @include large-head;
+     color: var(--gray3);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.75rem;
+    padding: .1rem 1rem;
+    border-bottom: .1rem solid var(--black);
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--gray2) 0,
+        var(--gray2) 1px,
+        var(--gray2) 1px,
+        var(--gray2) 2px
+    );
+   
+}
+
+.title-bar span {
+    position: relative;
+    padding: 0 1rem;
+    background: var(--gray2);
+    z-index: 1;
+}
+
+.window.is-active-window {
+    --black: #000;
+}
+
+.window.is-active-window .title-bar,
+.window:focus-within .title-bar {
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--gray4) 0,
+        var(--gray4) 1px,
+        var(--gray1) 2px,
+        var(--gray1) 3px
+    );
+    border-color: var(--gray4);
+    color: var(--white);
+}
+
+.window.is-active-window .title-bar span,
+.window:focus-within .title-bar span {
+    background: var(--gray1);
+    color: var(--black);
+}
+

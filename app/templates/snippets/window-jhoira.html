@@ -1,0 +1,38 @@
+<div class="window jhoira-window">
+    <div class="title-bar">
+        <span>Jhoira of the Ghitu</span>
+    </div>
+    <main class="jhoira-panel avatar-panel">
+        <div id="jhoiraInputSection" class="panel input-section">
+            <div class="jhoira-type-toggle">
+                <button id="jhoiraInstantBtn" class="type-toggle-btn active" data-type="instant">Instant</button>
+                <button id="jhoiraSorceryBtn" class="type-toggle-btn" data-type="sorcery">Sorcery</button>
+                <button id="jhoiraAvatarBtn" class="type-toggle-btn avatar-info">?</button>
+            </div>
+            <button id="jhoiraPreviewBtn" class="action-btn primary">Draw Spells</button>
+            <div id="jhoiraErrorMessage" class="error-message" style="display: none;"></div>
+        </div>
+
+        <div id="jhoiraCardSection" class="panel card-section" style="display: none;">
+            <div class="card-actions">
+                <button id="jhoiraNextBtn" class="action-btn primary">Next</button>
+                <button id="jhoiraHomeBtn" class="action-btn">Back</button>
+            </div>
+            <div id="jhoiraCards"></div>
+        </div>
+
+        <div id="jhoiraLoadingState" class="panel loading-state" style="display: none;">
+            <p>Loading...</p>
+        </div>
+
+        <div id="jhoiraAvatarSection" class="panel card-section" style="display: none;">
+            <div class="card-actions">
+                <button id="jhoiraAvatarPrintBtn" class="action-btn primary">Print</button>
+                <button id="jhoiraAvatarBackBtn" class="action-btn">Back</button>
+            </div>
+            <div class="image-frame">
+                <img src="/api/avatar-image?name=jhoira_avatar" alt="Jhoira" class="card-image" />
+            </div>
+        </div>
+    </main>
+</div>

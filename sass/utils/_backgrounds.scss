@@ -1,0 +1,44 @@
+@mixin dottedPattern ($foreground, $background) {
+    background-color: $background;
+    background-image: radial-gradient($foreground 1px, transparent 0.8px);
+    background-repeat: repeat;
+    background-size: .5rem .5rem;
+}
+
+
+@mixin angledPattern ($foreground, $background) {
+    background-color: $background;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        $foreground 0,
+        $foreground 1px,
+        transparent 1px,
+        transparent 1rem
+    );}
+
+
+@mixin linesPattern ($foreground, $background) {
+    background-color: $background;
+    background-image: linear-gradient($foreground 1px, transparent 1px, transparent);
+    background-repeat: repeat;
+    background-size: 10rem 1rem;
+}
+
+@mixin checker-pattern {
+    background-color: var(--gray1);
+    background-image: conic-gradient(
+        from 90deg,
+        var(--gray3) 0 25%,
+        var(--gray2) 25% 50%,
+        var(--gray3) 50% 75%,
+        var(--gray2) 75% 100%
+    );
+    background-size: .5rem .5rem;
+}
+
+
+@mixin system7Back {
+    background: url('../backgrounds/987.png') repeat;
+    background-size: 2rem 2rem;
+    background-attachment: fixed;
+}

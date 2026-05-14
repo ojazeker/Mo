@@ -1,0 +1,30 @@
+@use '../utils/mixins' as *;
+
+button,
+input {
+    font: inherit;
+    touch-action: manipulation;
+}
+
+button {
+    cursor: pointer;
+}
+
+.action-btn {
+    @include simple-button;
+}
+
+.action-btn.primary {
+    position: relative;
+    width: 100%;
+    height: 40px;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    & .action-btn {
+        width: 100%;
+    }
+}

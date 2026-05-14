@@ -1,0 +1,14 @@
+@use '../utils/backgrounds' as *;
+
+.card-search-panel {
+    @include linesPattern(var(--gray3), var(--gray2));
+}
+
+#cardSearchValue.is-placeholder::before {
+    content: "Search cards";
+    color: var(--gray3);
+}
+
+.window.is-active-window #cardSearchValue.is-placeholder::before {
+    display: none;
+}

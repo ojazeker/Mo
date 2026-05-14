@@ -1,0 +1,57 @@
+<div class="window card-search-window">
+    <div class="title-bar">
+        <span>Card Print</span>
+    </div>
+
+    <main class="panel card-search-panel">
+        <div id="cardSearchSection">
+            <div id="cardSearchValue" class="token-search-display">Search cards</div>
+
+            <div id="cardSearchKeyboard" class="alpha-keyboard">
+                <button class="keyboard-key" data-card-letter="A">A</button>
+                <button class="keyboard-key" data-card-letter="B">B</button>
+                <button class="keyboard-key" data-card-letter="C">C</button>
+                <button class="keyboard-key" data-card-letter="D">D</button>
+                <button class="keyboard-key" data-card-letter="E">E</button>
+                <button class="keyboard-key" data-card-letter="F">F</button>
+                <button class="keyboard-key" data-card-letter="G">G</button>
+                <button class="keyboard-key" data-card-letter="H">H</button>
+                <button class="keyboard-key" data-card-letter="I">I</button>
+                <button class="keyboard-key" data-card-letter="J">J</button>
+                <button class="keyboard-key" data-card-letter="K">K</button>
+                <button class="keyboard-key" data-card-letter="L">L</button>
+                <button class="keyboard-key" data-card-letter="M">M</button>
+                <button class="keyboard-key" data-card-letter="N">N</button>
+                <button class="keyboard-key" data-card-letter="O">O</button>
+                <button class="keyboard-key" data-card-letter="P">P</button>
+                <button class="keyboard-key" data-card-letter="Q">Q</button>
+                <button class="keyboard-key" data-card-letter="R">R</button>
+                <button class="keyboard-key" data-card-letter="S">S</button>
+                <button class="keyboard-key" data-card-letter="T">T</button>
+                <button class="keyboard-key" data-card-letter="U">U</button>
+                <button class="keyboard-key" data-card-letter="V">V</button>
+                <button class="keyboard-key" data-card-letter="W">W</button>
+                <button class="keyboard-key" data-card-letter="X">X</button>
+                <button class="keyboard-key" data-card-letter="Y">Y</button>
+                <button class="keyboard-key" data-card-letter="Z">Z</button>
+                <button id="cardSearchClearBtn" class="keyboard-key keyboard-clear">Del</button>
+                <button id="cardSearchSpaceBtn" class="keyboard-key keyboard-space">Space</button>
+                <button id="cardSearchBackspaceBtn" class="keyboard-key keyboard-backspace">&larr;</button>
+            </div>
+
+            <div id="cardSearchResults" class="token-results"></div>
+        </div>
+
+        <div id="cardSearchPreviewSection" class="token-preview-section" style="display: none;">
+            <div class="card-actions">
+                <button id="printCardSearchBtn" class="action-btn primary">Print</button>
+                <button id="cardSearchHomeBtn" class="action-btn">Back</button>
+            </div>
+            <div class="image-frame token-image-frame">
+                <img id="cardSearchImage" class="card-image" alt="Selected card image" />
+            </div>
+            <div id="cardSearchRulesText" class="card-rules-text"></div>
+            <div id="cardSearchErrorMessage" class="error-message" style="display: none;"></div>
+        </div>
+    </main>
+</div>

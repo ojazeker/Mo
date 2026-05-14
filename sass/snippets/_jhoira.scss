@@ -1,0 +1,46 @@
+@use '../utils/mixins' as *;
+
+#jhoiraCards {
+    display: grid;
+    & .jhoira-card-entry {
+        grid-row: 1 / 2;
+        grid-column: 1 / 2;
+        position: relative;
+        width: fit-content;
+        margin: auto;
+        transition: transform .2s;
+        max-width: calc(100% - 4rem);
+        &.first {
+            transform: translateX(-50%) rotate(-25deg) scale(0.8);
+        }
+        &.second {
+            transform: translateX(-25%) rotate(-15deg) scale(0.8);
+        }        
+        & .card-image {
+            padding: 0rem;
+            border-radius: 12px;
+        }
+        & .card-rules-text {
+            position: absolute;
+            bottom: 0;
+        }
+        &.active {
+            transform: translateX(2rem) rotate(0deg) scale(1);
+            opacity: 1;
+            z-index: 10;
+        }
+    }
+}
+
+.jhoira-type-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.type-toggle-btn {
+    @include simple-button;
+  
+}
+

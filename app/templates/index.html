@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mo - Momir, Tokens, Card en Deck Printer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/favicon-96x96.png') }}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='icons/favicon.svg') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icons/favicon.ico') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='icons/apple-touch-icon.png') }}" />
+    <link rel="manifest" href="{{ url_for('static', filename='icons/site.webmanifest') }}" />
+    
+</head>
+<body>
+    <div class="container">
+        <div class="window-row avatar-windows">
+            {% include 'snippets/window-momir.html' %}
+            {% include 'snippets/window-stonehewer.html' %}
+            {% include 'snippets/window-jhoira.html' %}
+        </div><!-- end .window-row -->
+
+        {% include 'snippets/window-tokens.html' %}
+        {% include 'snippets/window-card-search.html' %}
+        <div class="window-row deck-row">
+            {% include 'snippets/window-decklist.html' %}
+            {% include 'snippets/window-top8.html' %}
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/mo.min.js') }}?v={{ range(1000,9999) | random }}"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<div class="window token-window">
+    <div class="title-bar">
+        <span>Token Print</span>
+    </div>
+
+    <main class="panel token-panel">
+        <div id="tokenSearchSection">
+            <div id="tokenSearchValue" class="token-search-display">Search tokens</div>
+
+            <div class="alpha-keyboard">
+                <button class="keyboard-key" data-letter="A">A</button>
+                <button class="keyboard-key" data-letter="B">B</button>
+                <button class="keyboard-key" data-letter="C">C</button>
+                <button class="keyboard-key" data-letter="D">D</button>
+                <button class="keyboard-key" data-letter="E">E</button>
+                <button class="keyboard-key" data-letter="F">F</button>
+                <button class="keyboard-key" data-letter="G">G</button>
+                <button class="keyboard-key" data-letter="H">H</button>
+                <button class="keyboard-key" data-letter="I">I</button>
+                <button class="keyboard-key" data-letter="J">J</button>
+                <button class="keyboard-key" data-letter="K">K</button>
+                <button class="keyboard-key" data-letter="L">L</button>
+                <button class="keyboard-key" data-letter="M">M</button>
+                <button class="keyboard-key" data-letter="N">N</button>
+                <button class="keyboard-key" data-letter="O">O</button>
+                <button class="keyboard-key" data-letter="P">P</button>
+                <button class="keyboard-key" data-letter="Q">Q</button>
+                <button class="keyboard-key" data-letter="R">R</button>
+                <button class="keyboard-key" data-letter="S">S</button>
+                <button class="keyboard-key" data-letter="T">T</button>
+                <button class="keyboard-key" data-letter="U">U</button>
+                <button class="keyboard-key" data-letter="V">V</button>
+                <button class="keyboard-key" data-letter="W">W</button>
+                <button class="keyboard-key" data-letter="X">X</button>
+                <button class="keyboard-key" data-letter="Y">Y</button>
+                <button class="keyboard-key" data-letter="Z">Z</button>
+                <button id="keyboardBackspaceBtn" class="keyboard-key keyboard-backspace">&larr;</button>
+                <button id="keyboardSpaceBtn" class="keyboard-key keyboard-space">Space</button>
+                <button id="keyboardClearBtn" class="keyboard-key keyboard-clear">Del</button>
+            </div>
+
+            <div id="tokenResults" class="token-results"></div>
+        </div>
+
+        <div id="tokenPreviewSection" class="token-preview-section" style="display: none;">
+            <div class="card-actions">
+                <button id="printTokenBtn" class="action-btn primary">Print</button>
+                <button id="tokenHomeBtn" class="action-btn">Back</button>
+            </div>
+            <div class="image-frame token-image-frame">
+                <img id="tokenImage" class="card-image" alt="Selected token image" />
+            </div>
+            <div id="tokenRulesText" class="card-rules-text" style="display: none;"></div>
+            <div id="tokenErrorMessage" class="error-message" style="display: none;"></div>
+        </div>
+    </main>
+</div>

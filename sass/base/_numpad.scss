@@ -1,0 +1,19 @@
+@use '../utils/mixins' as *;
+
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .5rem;
+    margin-bottom: 1rem;
+}
+
+
+.numpad-btn.clear {
+    grid-column: span 2;
+}
+
+
+.numpad-btn {
+    @include shadow-button;
+    
+}

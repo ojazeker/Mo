@@ -1,0 +1,53 @@
+<div class="window stonehewer-window">
+    <div class="title-bar">
+        <span>Stonehewer Giant</span>
+    </div>
+    <main class="stonehewer-panel avatar-panel">
+        <div id="stonehewerInputSection" class="panel input-section">
+            <div class="cmc-display">
+                <span id="stonehewerCmcValue"></span>
+            </div>
+            <div class="numpad">
+                <button class="sh-numpad-btn numpad-btn" data-value="7">7</button>
+                <button class="sh-numpad-btn numpad-btn" data-value="8">8</button>
+                <button class="sh-numpad-btn numpad-btn" data-value="9">9</button>
+                <button class="sh-numpad-btn numpad-btn" data-value="4">4</button>
+                <button class="sh-numpad-btn numpad-btn" data-value="5">5</button>
+                <button class="sh-numpad-btn numpad-btn" data-value="6">6</button>
+                <button class="sh-numpad-btn numpad-btn" data-value="1">1</button>
+                <button class="sh-numpad-btn numpad-btn" data-value="2">2</button>
+                <button class="sh-numpad-btn numpad-btn" data-value="3">3</button>
+                <button id="stonehewerAvatarBtn" class="numpad-btn avatar-info">?</button>
+                <button class="sh-numpad-btn numpad-btn" data-value="0">0</button>
+                <button id="stonehewerClearBtn" class="numpad-btn">clear</button>
+            </div>
+            <button id="stonehewerDrawBtn" class="action-btn primary" disabled>Draw Equipment</button>
+            <div id="stonehewerErrorMessage" class="error-message" style="display: none;"></div>
+        </div>
+
+        <div id="stonehewerCardSection" class="panel card-section" style="display: none;">
+            <div class="card-actions">
+                <button id="stonehewerPrintBtn" class="action-btn primary">Print</button>
+                <button id="stonehewerHomeBtn" class="action-btn">Back</button>
+            </div>
+            <div class="image-frame">
+                <img id="stonehewerCardImage" class="card-image" alt="Equipment card" />
+            </div>
+            <div id="stonehewerRulesText" class="card-rules-text"></div>
+        </div>
+
+        <div id="stonehewerLoadingState" class="panel loading-state" style="display: none;">
+            <p>Loading...</p>
+        </div>
+
+        <div id="stonehewerAvatarSection" class="panel card-section" style="display: none;">
+            <div class="card-actions">
+                <button id="stonehewerAvatarPrintBtn" class="action-btn primary">Print</button>
+                <button id="stonehewerAvatarBackBtn" class="action-btn">Back</button>
+            </div>
+            <div class="image-frame">
+                <img src="/api/avatar-image?name=stonehewer_avatar" alt="Stonehewer Giant" class="card-image" />
+            </div>
+        </div>
+    </main>
+</div>

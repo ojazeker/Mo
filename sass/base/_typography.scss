@@ -1,0 +1,31 @@
+@font-face {
+    font-family: "Chicago7";
+    src: url("../fonts/Chicago.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+body {
+    font-family: "Chicago7", sans-serif;
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--black);
+}
+
+@mixin large-head {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+@mixin medium-head {
+    font-size: 1.2rem;
+}
+
+@mixin small-head {
+    font-size: 1rem;
+}
+
+@mixin meta-head {
+    font-size: 0.7rem;
+}
+

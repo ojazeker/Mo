@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283.46 283.46" width="283.46" height="283.46"><metadata><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><rdf:Description><dc:creator>RealFaviconGenerator</dc:creator><dc:source>https://realfavicongenerator.net</dc:source></rdf:Description></rdf:RDF></metadata><defs>
+    <style>
+      .cls-1 {
+        fill: #111;
+      }
+
+      .cls-2 {
+        font-family: Chicago, Chicago;
+        font-size: 153.59px;
+        letter-spacing: -.1em;
+      }
+
+      .cls-3 {
+        fill: #f9f9f9;
+      }
+
+      .cls-4 {
+        fill: #bfbfbf;
+      }
+    </style>
+  </defs><g id="Layer_1" data-name="Layer 1">
+    <rect class="cls-4" y="0" width="283.46" height="283.46"></rect>
+  </g><g id="Layer_2" data-name="Layer 2">
+    <rect class="cls-3" x="14.08" y="13.43" width="251.8" height="253.08"></rect>
+    <rect class="cls-1" x="14.08" y="266.52" width="262.3" height="10.55"></rect>
+    <rect class="cls-1" x="7.09" y="6.4" width="262.3" height="7.03"></rect>
+    <rect class="cls-1" x="7.09" y="9.92" width="6.99" height="260.11"></rect>
+    <rect class="cls-1" x="265.89" y="13.43" width="10.49" height="260.11"></rect>
+    <text class="cls-2" transform="translate(21.26 198.42)"><tspan x="0" y="0">Mo</tspan></text>
+    <rect class="cls-1" x="10.58" y="270.03" width="3.5" height="3.52"></rect>
+    <rect class="cls-1" x="269.38" y="9.92" width="3.5" height="3.52"></rect>
+  </g></svg>

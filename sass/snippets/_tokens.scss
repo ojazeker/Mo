@@ -1,0 +1,147 @@
+@use '../base/typography' as *;
+@use '../utils/backgrounds' as *;
+@use '../utils/mixins' as *;
+
+.token-search-display {
+    @include text-frame;
+    
+}
+
+.token-panel {
+    @include angledPattern(var(--gray3), var(--gray2));
+    background-color: var(--gray1);    
+}
+
+.token-search-display::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--black);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    opacity: 0;
+}
+
+.window.is-active-window .token-search-display::after {
+    animation: blink-cursor 1s step-end infinite;
+    opacity: 1;
+}
+
+#tokenSearchValue.is-placeholder::before {
+    content: "Search tokens";
+    color: var(--gray3);
+}
+
+.window.is-active-window #tokenSearchValue.is-placeholder::before {
+    display: none;
+}
+
+.token-results {
+    @include styled-scrollbar;
+    @include inner-frame;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    max-height: 15rem;
+    overflow-y: auto;
+}
+
+
+.token-result-btn {
+    @include outward-button;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.token-result-top,
+.token-name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal;
+}
+
+.token-name {
+    @include small-head;
+}
+
+.token-type-line {
+    @include meta-head;
+    color: var(--black);
+    display: block;   
+}
+
+.token-keywords {
+    @include meta-head;
+    color: var(--gray4);
+    display: block;
+}
+
+.token-pt {
+    @include meta-head;
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.token-pips {
+    display: inline-flex;
+    align-items: center;
+    gap: .2rem;
+}
+
+.token-pip {
+    display: inline-block;
+    width: calc(.5rem + 2px);
+    height: calc(.5rem + 2px);
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 1.5px solid var(--black);
+}
+
+.token-pip-w {
+    background: white;
+}
+
+.token-pip-u {
+    background: blue;
+}
+
+.token-pip-b {
+    background: black;
+}
+
+.token-pip-r {
+    background: red;
+}
+
+.token-pip-g {
+    background: lime;
+}
+
+.token-pip-c {
+    background: transparent;
+}
+
+.token-result-empty,
+.loading-state,
+.error-message,
+.status-bar {
+    padding: .5rem;
+}
+
+.loading-state {
+    text-align: center;
+    color: var(--gray4);
+}
+
+.error-message {
+    margin-top: .75rem;
+    background: var(--gray2);
+}
+
+.status-bar {
+    margin: 0 .75rem .75rem;
+}
