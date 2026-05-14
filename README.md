@@ -11,12 +11,13 @@ This started as a Momir Basic printer, but right now it has functionality way be
 
 - Momir Basic, instant printing after one click
 - Mo-Jho-Sto support, with custum avatar images
-- System 7 web interface with numpad and token/creature search windows and decklist editor
-- Card Search feature to get any card
-- Completely offline at runtime — all images and databases are stored locally
+- System 7 web interface with numpad and token/card search windows
+- Decklist window to print multiple cards at once
+- MTGTOP8 scraper to pull top 8 decks in various formats
+- Completely offline at runtime — all images and databases are stored on the pi
 - Dithered images optimised for thermal printing
 - Hotspot mode (when away from home)
-- The scrapers always try to pull the first printing image
+- The scripts always try to pull the first printing of a card
 
 ## How it works
 
