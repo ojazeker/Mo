@@ -95,3 +95,10 @@ Mo/
 | [docs/update.md](docs/update.md) | Adding new sets, re-running parts of the pipeline |
 | [docs/deploy.md](docs/deploy.md) | Pi setup, deploying updates, network modes |
 | [docs/bom.md](docs/bom.md) | Bill of materials — hardware components |
+
+## Support
+
+I've done my best to make forking this project as easy as possible — it takes some work but it's a lot of fun to get printing this way!
+
+If you enjoy the project, consider buying me a coffee:  
+[ko-fi.com/ojazeker](https://ko-fi.com/ojazeker)
