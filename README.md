@@ -1,6 +1,6 @@
-# Momir Magic Generator
+# Mo
 
-A Raspberry Pi thermal printer solution for Magic: The Gathering.  
+Mo is a Raspberry Pi thermal printer solution for Magic: The Gathering.  
 Pick a mana value, get a random creature, print cards, decks token, anything really! 
 Runs fully offline.
 
