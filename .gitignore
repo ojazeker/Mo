@@ -10,8 +10,8 @@ __pycache__/
 .Python
 
 # Local images (generated, not versioned)
-images/
-images_dithered/
+/images/
+/images_dithered/
 
 # Generated files / large data files (download via update pipeline)
 cards_json/*_for_download.json
