@@ -100,6 +100,7 @@ Mo/
 | [docs/update.md](docs/update.md) | Adding new sets, re-running parts of the pipeline |
 | [docs/deploy.md](docs/deploy.md) | Pi setup, deploying updates, network modes |
 | [docs/bom.md](docs/bom.md) | Bill of materials — hardware components |
+| [docs/hardware.md](docs/hardware.md) | Wiring, power setup, GPIO pinout |
 
 ## Support
 
