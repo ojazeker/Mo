@@ -9,22 +9,24 @@ This started as a Momir Basic printer, but right now it has functionality way be
 
 ## Features
 
-- Momir Basic, instant printing after one click
-- Mo-Jho-Sto support, with custum avatar images
-- System 7 web interface with numpad and token/card search windows
-- Decklist window to print multiple cards at once
+- Momir Basic, pick a CMC and Mo will print instantly
+- Mo-Jho-Sto support, complete with avatar images
+- System 7 inspired web interface with numpad and token/card search windows
+- Decklist window to print multiple cards at once, deck-preview window to review before print
 - MTGTOP8 scraper to pull top 8 decks in various formats
 - Completely offline at runtime — all images and databases are stored on the pi
 - Dithered images optimised for thermal printing
-- Hotspot mode (when away from home)
-- The scripts always try to pull the first printing of a card
+- Switch for hotspot/network mode (handy when away from home)
+- The scripts always tries to pull the first printing of a card
+- Webapp support for bookmarking without an adress bar on mobile devices
+- Doublesided cards get printed as one continous image
 
 ## How it works
 
 The project has two distinct stages:
 
-**Build (Mac/Pc only)** — pull card data from Scryfall, dither images, build databases, test the app locally.  
-**Runtime (Pi only)** — serve the Flask app, handle printer output.
+**Build (on your Mac/Pc)** — pull card data from Scryfall, dither images, build databases, test the app locally.  
+**Runtime (on the pi Pi)** — serve the Flask app on boot, handle printer output.
 
 ## Project Structure
 
@@ -48,7 +50,7 @@ Mo/
 │   ├── instant/
 │   ├── artifact/
 │   ├── token/
-│   └── ...                       # One folder per card type
+│   └── ...                       # One folder per card type, subfolder per CMC
 ├── images_dithered/              # Dithered BMPs deployed to Pi (gitignored)
 │   ├── creature/
 │   ├── token/
@@ -58,7 +60,7 @@ Mo/
 ├── cards_json/                   # MTGJSON source files (gitignored)
 ├── deck_lists/                   # Fetched decklists (gitignored)
 ├── scripts/
-│   ├── build/                    # Mac only — data pipeline
+│   ├── build/                    # Mac/PC only — data pipeline
 │   │   ├── pipeline.py           # Run all build steps
 │   │   ├── extract_cards.py
 │   │   ├── extract_creatures.py

@@ -1,6 +1,6 @@
 # Developing Locally
 
-Everything here runs on your **Mac** only — not the Pi!
+Everything here runs on your **Mac/Pc** only — not the Pi!
 
 ## Prerequisites
 
