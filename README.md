@@ -4,7 +4,7 @@ Mo is a Raspberry Pi thermal printer solution for Magic: The Gathering.
 Get a random momir creature, print cards, decks, tokens, anything really! 
 Runs fully offline.
 
-This started as a Momir Basic printer, but right now has functionality way beyond that.
+This started as a Momir Basic printer, but right now it has functionality way beyond that.
 
 
 ## Features
@@ -22,7 +22,7 @@ This started as a Momir Basic printer, but right now has functionality way beyon
 
 The project has two distinct stages:
 
-**Build (Mac only)** — pull card data from Scryfall, dither images, build databases, test the app locally.  
+**Build (Mac/Pc only)** — pull card data from Scryfall, dither images, build databases, test the app locally.  
 **Runtime (Pi only)** — serve the Flask app, handle printer output.
 
 ## Project Structure
