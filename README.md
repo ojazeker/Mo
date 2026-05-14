@@ -28,7 +28,7 @@ The project has two distinct stages:
 ## Project Structure
 
 ```
-MomirPrinter/
+Mo/
 ├── app/                          # Everything that runs on the Pi
 │   ├── app.py                    # Flask app entry point
 │   ├── utils.py                  # Card loading/filtering
@@ -90,7 +90,8 @@ MomirPrinter/
 
 | Guide | Contents |
 |---|---|
-| [docs/develop.md](docs/develop.md) | venv, Sass, running local dev server, API routes |
-| [docs/update.md](docs/update.md) | First-time setup, adding new sets, token pipeline |
+| [docs/setup.md](docs/setup.md) | First-time setup — environment, downloading data, building images |
+| [docs/develop.md](docs/develop.md) | Local dev server, Sass, JS, API routes |
+| [docs/update.md](docs/update.md) | Adding new sets, re-running parts of the pipeline |
 | [docs/deploy.md](docs/deploy.md) | Pi setup, deploying updates, network modes |
 | [docs/bom.md](docs/bom.md) | Bill of materials — hardware components |

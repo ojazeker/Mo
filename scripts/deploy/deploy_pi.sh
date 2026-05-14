@@ -11,7 +11,7 @@ PI_TARGETS=(
   "10.42.0.1"
   "192.168.4.1"
 )
-PI_DEST="${PI_DEST:-~/MomirPrinter}"
+PI_DEST="${PI_DEST:-~/Mo}"
 SERVICE_NAME="${SERVICE_NAME:-momir}"
 SSH_OPTS=(
   -o BatchMode=yes

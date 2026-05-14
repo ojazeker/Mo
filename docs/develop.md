@@ -10,7 +10,7 @@ Everything here runs on your **Mac** only — not the Pi!
 ## Python Environment
 
 ```bash
-cd /path/to/MomirPrinter
+cd /path/to/Mo
 source momir_env/bin/activate
 python3 -m pip install -r requirements.txt
 ```

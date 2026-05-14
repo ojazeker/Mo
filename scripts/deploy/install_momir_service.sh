@@ -18,7 +18,7 @@ set -euo pipefail
 #   momir-ap   — hotspot (MomirPrinter / prompted at install time), autoconnect=no
 #   momir-home — rename of your existing home WiFi connection
 
-PROJECT_DIR="${PROJECT_DIR:-$HOME/MomirPrinter}"
+PROJECT_DIR="${PROJECT_DIR:-$HOME/Mo}"
 SERVICE_NAME="${SERVICE_NAME:-momir}"
 SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}.service"
 

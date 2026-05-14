@@ -19,7 +19,7 @@ The Pi is the **runtime machine**. All build steps happen on Mac first. See [upd
 ### 1. Install the systemd service (run on Pi)
 
 ```bash
-cd ~/MomirPrinter
+cd ~/Mo
 ./scripts/deploy/install_momir_service.sh
 ```
 
@@ -63,7 +63,7 @@ The script auto-tries multiple targets: `mo.local`, `10.42.0.1`, `192.168.4.1`.
 
 You can set up a shell alias for convenience:
 ```bash
-alias deploy-momir='bash /path/to/MomirPrinter/scripts/deploy/deploy_pi.sh'
+alias deploy-momir='bash /path/to/Mo/scripts/deploy/deploy_pi.sh'
 ```
 
 ---

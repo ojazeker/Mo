@@ -12,7 +12,7 @@ export PI_USER="pi"
 export PI_TARGETS=("mo.local" "10.42.0.1" "192.168.4.1")
 
 # Remote path where the project lives on the Pi
-export PI_DEST="~/MomirPrinter"
+export PI_DEST="~/Mo"
 
 # Hotspot password — must match what install_momir_service.sh used for the momir-ap profile
 # (set during one-time Pi setup, not used at deploy time)
