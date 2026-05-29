@@ -118,23 +118,50 @@ def search_tokens(tokens, query, limit=12):
 
     unique_matches = {}
     for token in tokens:
-        # Skip dual-faced tokens (e.g. "Goblin // Soldier") — wrong data, wrong art
-        if '//' in token.get('name', ''):
-            continue
+        name = token.get('name', '')
+        type_line = token.get('type_line', '')
 
-        haystack = token.get('search_text') or normalize_search_text(
-            f"{token.get('name', '')} {token.get('type_line', '')}"
-        )
+        if '//' in name:
+            # Dual-faced token: index each face individually so e.g.
+            # "Goblin // City's Blessing" and "Zombie // City's Blessing"
+            # both deduplicate to a single "City's Blessing" result.
+            name_faces = [f.strip() for f in name.split('//')]
+            type_faces = [t.strip() for t in type_line.split('//')] if '//' in type_line else [type_line] * len(name_faces)
 
-        if normalized_query not in haystack:
-            continue
+            for i, face_name in enumerate(name_faces):
+                face_type = type_faces[i] if i < len(type_faces) else type_line
+                haystack = normalize_search_text(f"{face_name} {face_type}")
+                if normalized_query not in haystack:
+                    continue
 
-        dedupe_key = (
-            normalize_search_text(token.get('name', '')),
-            normalize_search_text(token.get('type_line', '')),
-            tuple(sorted(token.get('colors', []))),
-        )
-        unique_matches.setdefault(dedupe_key, token)
+                dedupe_key = (
+                    normalize_search_text(face_name),
+                    normalize_search_text(face_type),
+                    tuple(sorted(token.get('colors', []))),
+                    token.get('power', ''),
+                    token.get('toughness', ''),
+                )
+                if dedupe_key not in unique_matches:
+                    face_token = dict(token)
+                    face_token['name'] = face_name
+                    face_token['type_line'] = face_type
+                    unique_matches[dedupe_key] = face_token
+        else:
+            haystack = token.get('search_text') or normalize_search_text(
+                f"{name} {type_line}"
+            )
+
+            if normalized_query not in haystack:
+                continue
+
+            dedupe_key = (
+                normalize_search_text(name),
+                normalize_search_text(type_line),
+                tuple(sorted(token.get('colors', []))),
+                token.get('power', ''),
+                token.get('toughness', ''),
+            )
+            unique_matches.setdefault(dedupe_key, token)
 
     matches = []
     for token in unique_matches.values():

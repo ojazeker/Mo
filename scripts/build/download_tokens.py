@@ -2,6 +2,7 @@
 """Download token metadata and images from Scryfall."""
 
 import json
+import re
 import time
 from pathlib import Path
 
@@ -11,6 +12,12 @@ import requests
 SCRYFALL_SEARCH_URL = 'https://api.scryfall.com/cards/search'
 BATCH_SIZE = 70
 DELAY_BETWEEN_BATCHES = 0.5
+
+
+def _normalize(text):
+    """Simple normalization for search_text field."""
+    text = str(text).lower().replace("'", '').replace('\u2019', '')
+    return re.sub(r'[^a-z0-9]+', ' ', text).strip()
 OUTPUT_DIR = Path('images/token')
 OUTPUT_JSON = Path('app/data/token_data.json')
 
@@ -66,19 +73,26 @@ def fetch_tokens():
         cards_sorted = sorted(cards, key=lambda c: c.get('released_at') or '')
         for card in cards_sorted:
             image_url = get_image_url(card)
-            if image_url:
-                # Add 'colors' field, default to [] if missing
-                tokens.append({
-                    'id': card.get('id'),
-                    'oracle_id': oracle_id,
-                    'name': card.get('name', 'Unknown Token'),
-                    'type_line': card.get('type_line', 'Token'),
-                    'image_url': image_url,
-                    'search_text': f"{card.get('name', '')} {card.get('type_line', '')}".lower(),
-                    'colors': card.get('colors', []),
-                })
-                break  # Only take the oldest with an image
-    print(f'   Selected {len(tokens)} unique tokens (oldest English printing per oracle_id)')
+            if not image_url:
+                continue
+            keywords = card.get('keywords', [])
+            name = card.get('name', 'Unknown Token')
+            type_line = card.get('type_line', 'Token')
+            search_text = _normalize(f"{name} {type_line} {' '.join(keywords)}")
+            tokens.append({
+                'id': card.get('id'),
+                'oracle_id': oracle_id,
+                'name': name,
+                'type_line': type_line,
+                'image_url': image_url,
+                'search_text': search_text,
+                'colors': card.get('colors', []),
+                'power': card.get('power', ''),
+                'toughness': card.get('toughness', ''),
+                'keywords': keywords,
+                'oracle_text': card.get('oracle_text', ''),
+            })
+    print(f'   Indexed {len(tokens)} token printings ({len(by_oracle)} unique oracle_ids)')
     return tokens
 
 
@@ -128,7 +142,6 @@ def download_token_images(tokens):
 
 def main():
     tokens = fetch_tokens()
-    print(f'   Found {len(tokens)} unique token types\n')
     download_token_images(tokens)
 
 
