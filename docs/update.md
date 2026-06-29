@@ -109,7 +109,8 @@ This will:
 1. Find creatures not already in the image library
 2. Download only the missing images from Scryfall
 3. Dither them for the printer
-4. Rebuild `app/card_text_index.json`
+4. Fetch any new tokens from the set's token set (`tokenSetCode`), dither them, and update `token_data.json` — only genuinely new tokens are added, generic reprints (Soldier, Treasure, …) are skipped
+5. Rebuild `app/card_text_index.json`
 
 Then deploy: see [deploy.md](deploy.md).
 

@@ -28,15 +28,22 @@ from pathlib import Path
 import requests
 from PIL import Image, ImageEnhance, ImageOps, ImageStat
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dither_for_printer import dither_image
+
 # ── Paths ─────────────────────────────────────────────────────────────────────
 PROJECT_ROOT        = Path(__file__).resolve().parent.parent.parent
 CARDS_JSON          = PROJECT_ROOT / 'cards_json'
 IMAGES_ROOT         = PROJECT_ROOT / 'images'
 IMAGES_DITHERED_ROOT = PROJECT_ROOT / 'images_dithered'
 INDEX_PATH          = PROJECT_ROOT / 'app' / 'data' / 'card_text_index.json'
+TOKEN_DATA_PATH     = PROJECT_ROOT / 'app' / 'data' / 'token_data.json'
+TOKEN_IMG_ROOT      = IMAGES_ROOT / 'token'
+TOKEN_DITH_ROOT     = IMAGES_DITHERED_ROOT / 'token'
 
 # ── Scryfall ───────────────────────────────────────────────────────────────────
 SCRYFALL_URL  = 'https://api.scryfall.com/cards/collection'
+SCRYFALL_SEARCH_URL = 'https://api.scryfall.com/cards/search'
 BATCH_SIZE    = 70
 BATCH_DELAY   = 0.1   # seconds between Scryfall requests
 # Scryfall now rejects requests without a descriptive User-Agent/Accept header (HTTP 400).
@@ -324,6 +331,98 @@ def dither_card(card: dict, brightness_boost: int) -> bool:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Step 3b — fetch new tokens from the set's token set (tokenSetCode)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _normalize_token_text(text: str) -> str:
+    import re
+    text = str(text).lower().replace("'", '').replace('\u2019', '')
+    return re.sub(r'[^a-z0-9]+', ' ', text).strip()
+
+
+def _token_image_url(card: dict, size: str = 'normal'):
+    uris = card.get('image_uris') or {}
+    if uris.get(size):
+        return uris[size]
+    for face in card.get('card_faces') or []:
+        furi = face.get('image_uris') or {}
+        if furi.get(size):
+            return furi[size]
+    return None
+
+
+def process_tokens(token_set_code: str) -> int:
+    """Download/dither tokens from the set's token set that aren't already known.
+
+    Skips by oracle_id so generic reprints (Soldier, Treasure, ...) we already
+    have are ignored, and only genuinely new tokens are added. Returns count added.
+    """
+    if not token_set_code:
+        return 0
+
+    try:
+        resp = requests.get(
+            SCRYFALL_SEARCH_URL,
+            params={'q': f'set:{token_set_code.lower()}', 'unique': 'prints', 'order': 'name'},
+            timeout=15,
+            headers=SCRYFALL_HEADERS,
+        )
+        if resp.status_code == 404:
+            print(f"   No token set '{token_set_code}' on Scryfall.")
+            return 0
+        resp.raise_for_status()
+        toks = resp.json().get('data', [])
+    except requests.RequestException as e:
+        print(f"   ❌ Token fetch failed: {e}")
+        return 0
+
+    meta = json.load(open(TOKEN_DATA_PATH, encoding='utf-8')) if TOKEN_DATA_PATH.exists() else []
+    known_oids = {t.get('oracle_id') for t in meta}
+    new = [t for t in toks if t.get('oracle_id') not in known_oids]
+    if not new:
+        print(f"   No new tokens in {token_set_code} ({len(toks)} all known).")
+        return 0
+
+    TOKEN_IMG_ROOT.mkdir(parents=True, exist_ok=True)
+    TOKEN_DITH_ROOT.mkdir(parents=True, exist_ok=True)
+    added = 0
+    for c in new:
+        url = _token_image_url(c)
+        if not url:
+            continue
+        img = TOKEN_IMG_ROOT / f"{c['id']}.jpg"
+        try:
+            if not img.exists():
+                r = requests.get(url, timeout=15, headers=SCRYFALL_HEADERS)
+                r.raise_for_status()
+                img.write_bytes(r.content)
+            dither_image(str(img), str(TOKEN_DITH_ROOT / f"{c['id']}.bmp"))
+            meta.append({
+                'id':          c['id'],
+                'oracle_id':   c['oracle_id'],
+                'name':        c.get('name', 'Unknown Token'),
+                'type_line':   c.get('type_line', 'Token'),
+                'image_url':   url,
+                'search_text': _normalize_token_text(
+                    f"{c.get('name','')} {c.get('type_line','')} {' '.join(c.get('keywords',[]))}"),
+                'colors':      c.get('colors', []),
+                'power':       c.get('power', ''),
+                'toughness':   c.get('toughness', ''),
+                'keywords':    c.get('keywords', []),
+                'oracle_text': c.get('oracle_text', ''),
+            })
+            added += 1
+            print(f"   ✓  {c.get('name')} (token)")
+        except requests.RequestException as e:
+            print(f"   ❌ Token download failed for {c.get('name')}: {e}")
+
+    if added:
+        with open(TOKEN_DATA_PATH, 'w', encoding='utf-8') as f:
+            json.dump(meta, f, indent=2, ensure_ascii=False)
+    return added
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Step 4 — rebuild card_text_index.json (delegates to build_card_text_index.py)
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -400,9 +499,19 @@ def main():
             print(f"\n⚠  No images downloaded for {card_type}, skipping dither.")
 
     if not any_new:
-        print("\n✅ All types already up to date — nothing to do.")
-        return
+        print("\n✅ All card types already up to date.")
 
+    # ── Step 3b ─ new tokens from this set ───────────────────────────────────────
+    with open(json_path, encoding='utf-8') as f:
+        set_data = json.load(f).get('data', {}) or {}
+    token_set_code = set_data.get('tokenSetCode') or set_data.get('code', '')
+    print(f"\n🎴 Step 3b — Checking for new tokens (set {token_set_code})...")
+    added_tokens = process_tokens(token_set_code)
+    print(f"   Added {added_tokens} new token(s).")
+
+    if not any_new and not added_tokens:
+        print("\n✅ Nothing to do — set fully up to date.")
+        return
     # ── Step 4 ────────────────────────────────────────────────────────────────
     print(f"\n📖 Step 4 — Rebuilding card_text_index.json...")
     rebuild_index()
