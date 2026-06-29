@@ -39,7 +39,8 @@ INDEX_PATH          = PROJECT_ROOT / 'app' / 'data' / 'card_text_index.json'
 SCRYFALL_URL  = 'https://api.scryfall.com/cards/collection'
 BATCH_SIZE    = 70
 BATCH_DELAY   = 0.1   # seconds between Scryfall requests
-
+# Scryfall now rejects requests without a descriptive User-Agent/Accept header (HTTP 400).
+SCRYFALL_HEADERS = {'User-Agent': 'MomirPrinter/1.0', 'Accept': '*/*'}
 # ── Dithering ─────────────────────────────────────────────────────────────────
 PRINTER_WIDTH = 384
 
@@ -77,7 +78,7 @@ def _save_dfc_stacked(face_urls: list, dest: Path) -> None:
     """Download two face images and stack them vertically into one JPG."""
     imgs = []
     for url in face_urls[:2]:
-        r = requests.get(url, timeout=15)
+        r = requests.get(url, timeout=15, headers=SCRYFALL_HEADERS)
         r.raise_for_status()
         imgs.append(Image.open(BytesIO(r.content)).convert('RGB'))
     w = max(i.width for i in imgs)
@@ -227,7 +228,7 @@ def download_cards(cards: list[dict]) -> list[dict]:
                 SCRYFALL_URL,
                 json={'identifiers': identifiers},
                 timeout=15,
-                headers={'User-Agent': 'MomirPrinter/1.0'},
+                headers=SCRYFALL_HEADERS,
             )
             resp.raise_for_status()
             api_cards = resp.json().get('data', [])
@@ -272,7 +273,7 @@ def download_cards(cards: list[dict]) -> list[dict]:
                     _save_dfc_stacked(face_urls, dest)
                     print(f"   ✓  {card['name']} (DFC stacked)")
                 else:
-                    img_resp = requests.get(face_urls[0], timeout=15)
+                    img_resp = requests.get(face_urls[0], timeout=15, headers=SCRYFALL_HEADERS)
                     img_resp.raise_for_status()
                     dest.write_bytes(img_resp.content)
                     print(f"   ✓  {card['name']}")

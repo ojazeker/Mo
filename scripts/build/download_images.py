@@ -26,6 +26,8 @@ from pathlib import Path
 SCRYFALL_COLLECTION_URL = 'https://api.scryfall.com/cards/collection'
 BATCH_SIZE = 70  # Scryfall's limit per request
 DELAY_BETWEEN_BATCHES = 0.5  # seconds
+# Scryfall rejects requests without a descriptive User-Agent/Accept header (HTTP 400).
+SCRYFALL_HEADERS = {'User-Agent': 'MomirPrinter/1.0', 'Accept': '*/*'}
 
 # Default input files per card type (relative to project root)
 TYPE_INPUT_FILES = {
@@ -132,7 +134,8 @@ def download_images(creatures_file=None, filter_cmc=None, card_type='creature'):
             response = requests.post(
                 SCRYFALL_COLLECTION_URL,
                 json=payload,
-                timeout=10
+                timeout=10,
+                headers=SCRYFALL_HEADERS,
             )
             response.raise_for_status()
             
@@ -176,7 +179,7 @@ def download_images(creatures_file=None, filter_cmc=None, card_type='creature'):
 
                         face_images = []
                         for url in face_urls:
-                            r = requests.get(url, timeout=10)
+                            r = requests.get(url, timeout=10, headers=SCRYFALL_HEADERS)
                             r.raise_for_status()
                             face_images.append(Image.open(io.BytesIO(r.content)).convert('RGB'))
 

@@ -12,6 +12,8 @@ import requests
 SCRYFALL_SEARCH_URL = 'https://api.scryfall.com/cards/search'
 BATCH_SIZE = 70
 DELAY_BETWEEN_BATCHES = 0.5
+# Scryfall rejects requests without a descriptive User-Agent/Accept header (HTTP 400).
+SCRYFALL_HEADERS = {'User-Agent': 'MomirPrinter/1.0', 'Accept': '*/*'}
 
 
 def _normalize(text):
@@ -51,7 +53,7 @@ def fetch_tokens():
     print('📥 Fetching all token printings from Scryfall...')
     all_prints = []
     while url:
-        response = requests.get(url, params=params if url == SCRYFALL_SEARCH_URL else None, timeout=15)
+        response = requests.get(url, params=params if url == SCRYFALL_SEARCH_URL else None, timeout=15, headers=SCRYFALL_HEADERS)
         response.raise_for_status()
         payload = response.json()
         all_prints.extend(payload.get('data', []))
@@ -122,7 +124,7 @@ def download_token_images(tokens):
                 continue
 
             try:
-                response = requests.get(token['image_url'], timeout=15)
+                response = requests.get(token['image_url'], timeout=15, headers=SCRYFALL_HEADERS)
                 response.raise_for_status()
                 image_path.write_bytes(response.content)
                 downloaded += 1

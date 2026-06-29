@@ -11,6 +11,8 @@ OUTPUT_JSON = Path('app/data/token_data.json')
 IMAGE_DIR = Path('images/token')
 SCRYFALL_CARD_URL = 'https://api.scryfall.com/cards/{id}'
 DELAY = 0.1  # Scryfall rate limit: max 10 req/s
+# Scryfall rejects requests without a descriptive User-Agent/Accept header (HTTP 400).
+SCRYFALL_HEADERS = {'User-Agent': 'MomirPrinter/1.0', 'Accept': '*/*'}
 
 
 def main():
@@ -38,6 +40,7 @@ def main():
             response = requests.get(
                 SCRYFALL_CARD_URL.format(id=token_id),
                 timeout=15,
+                headers=SCRYFALL_HEADERS,
             )
             response.raise_for_status()
             card = response.json()

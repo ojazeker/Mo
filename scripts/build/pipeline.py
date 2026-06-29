@@ -18,6 +18,8 @@ SCRYFALL_COLLECTION_URL = 'https://api.scryfall.com/cards/collection'
 BATCH_SIZE = 70
 DELAY_BETWEEN_BATCHES = 0.5
 OUTPUT_DIR = 'images/creature'
+# Scryfall rejects requests without a descriptive User-Agent/Accept header (HTTP 400).
+SCRYFALL_HEADERS = {'User-Agent': 'MomirPrinter/1.0', 'Accept': '*/*'}
 
 
 def sanitize_filename(name):
@@ -27,7 +29,7 @@ def sanitize_filename(name):
 
 def download_image_bytes(url):
     """Download raw bytes for an image URL."""
-    response = requests.get(url, timeout=10)
+    response = requests.get(url, timeout=10, headers=SCRYFALL_HEADERS)
     response.raise_for_status()
     return response.content
 
@@ -189,7 +191,8 @@ def run_pipeline(filter_cmc=None):
             response = requests.post(
                 SCRYFALL_COLLECTION_URL,
                 json=payload,
-                timeout=10
+                timeout=10,
+                headers=SCRYFALL_HEADERS,
             )
             response.raise_for_status()
             

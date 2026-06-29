@@ -102,7 +102,7 @@ Drop the MTGJSON set file into `cards_json/` and run:
 
 ```bash
 python3 scripts/build/fetch_set_list.py   # refresh set release dates
-python3 scripts/build/add_cards.py cards_json/NewSet.json
+python3 scripts/build/add_cards.py cards_json/additional-sets/NewSet.json
 ```
 
 This will:

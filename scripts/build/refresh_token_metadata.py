@@ -9,6 +9,8 @@ import requests
 
 SCRYFALL_SEARCH_URL = 'https://api.scryfall.com/cards/search'
 OUTPUT_JSON = Path('app/data/token_data.json')
+# Scryfall rejects requests without a descriptive User-Agent/Accept header (HTTP 400).
+SCRYFALL_HEADERS = {'User-Agent': 'MomirPrinter/1.0', 'Accept': '*/*'}
 
 
 def fetch_extra_fields():
@@ -28,6 +30,7 @@ def fetch_extra_fields():
             url,
             params=params if url == SCRYFALL_SEARCH_URL else None,
             timeout=15,
+            headers=SCRYFALL_HEADERS,
         )
         response.raise_for_status()
         payload = response.json()

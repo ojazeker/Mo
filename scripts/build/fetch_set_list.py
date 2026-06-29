@@ -12,6 +12,7 @@ import requests
 from pathlib import Path
 
 SETLIST_URL = 'https://mtgjson.com/api/v5/SetList.json'
+HEADERS = {'User-Agent': 'MomirPrinter/1.0', 'Accept': '*/*'}
 
 
 KEEP_FIELDS = {'code', 'name', 'type', 'releaseDate', 'keyruneCode', 'tokenSetCode', 'isOnlineOnly', 'isFoilOnly'}
@@ -20,7 +21,7 @@ KEEP_FIELDS = {'code', 'name', 'type', 'releaseDate', 'keyruneCode', 'tokenSetCo
 def fetch_set_list(output_path: Path) -> bool:
     print(f'Downloading SetList.json from MTGJSON...')
     try:
-        response = requests.get(SETLIST_URL, timeout=30)
+        response = requests.get(SETLIST_URL, timeout=30, headers=HEADERS)
         response.raise_for_status()
         data = response.json()
         sets = data.get('data', [])
