@@ -5,7 +5,7 @@ set -euo pipefail
 # Tries multiple targets so the same command works in home-WiFi and AP mode.
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-PI_USER="${PI_USER:-pi}"
+PI_USER="${PI_USER:-$(id -un)}"
 PI_TARGETS=(
   "mo.local"
   "10.42.0.1"
@@ -71,26 +71,42 @@ while [[ $# -gt 0 ]]; do
 done
 
 pick_target() {
-  local target
+  local target rc
+  TARGET=""
+  AUTH_FAILED_TARGET=""
+
   if [[ -n "$FORCED_TARGET" ]]; then
-    echo "$FORCED_TARGET"
+    TARGET="$FORCED_TARGET"
     return 0
   fi
 
   for target in "${PI_TARGETS[@]}"; do
     if ssh "${SSH_OPTS[@]}" "${PI_USER}@${target}" "echo ok" >/dev/null 2>&1; then
-      echo "$target"
+      TARGET="$target"
       return 0
+    fi
+    rc=$?
+    # ssh exits 255 on connection/auth errors. Distinguish "host reachable but
+    # auth refused" (255 + TCP port open) from "host unreachable" so we can give
+    # an accurate message instead of blaming the network.
+    if [[ "$rc" -eq 255 ]] && nc -z -G 2 "$target" 22 >/dev/null 2>&1; then
+      AUTH_FAILED_TARGET="$target"
     fi
   done
 
   return 1
 }
 
-TARGET="$(pick_target || true)"
+pick_target || true
 if [[ -z "$TARGET" ]]; then
-  echo "Could not reach Pi via any target: ${PI_TARGETS[*]}" >&2
-  echo "Connect your Mac to the right network and retry." >&2
+  if [[ -n "${AUTH_FAILED_TARGET:-}" ]]; then
+    echo "Reached ${AUTH_FAILED_TARGET} but SSH auth failed for user '${PI_USER}'." >&2
+    echo "Fix: set the right user/key, e.g. PI_USER=<user> scripts/deploy/deploy_pi.sh" >&2
+    echo "Or copy your key first: ssh-copy-id ${PI_USER}@${AUTH_FAILED_TARGET}" >&2
+  else
+    echo "Could not reach Pi via any target: ${PI_TARGETS[*]}" >&2
+    echo "Connect your Mac to the right network and retry." >&2
+  fi
   exit 2
 fi
 
