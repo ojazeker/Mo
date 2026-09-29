@@ -17,7 +17,7 @@ __pycache__/
 cards_json/*_for_download.json
 cards_json/AtomicCards.json
 cards_json/SetList.json
-cards_json/SOS.json
+cards_json/*.json
 cards_json/additional_sets/
 creatures_image_urls.json
 
