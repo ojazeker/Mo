@@ -98,11 +98,11 @@ You should see `✓ Loaded compact card text index`.
 
 ## Adding a New Set
 
-Drop the MTGJSON set file into `cards_json/` and run:
+Drop the MTGJSON set file into `cards_json/` and run (replace `SOS.json` with your set file):
 
 ```bash
 python3 scripts/build/fetch_set_list.py   # refresh set release dates
-python3 scripts/build/add_cards.py cards_json/additional-sets/NewSet.json
+python3 scripts/build/add_cards.py cards_json/additional_sets/SOS.json
 ```
 
 This will:
